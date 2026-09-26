@@ -3,6 +3,9 @@ In this file, small datasets are created as examples to be used by the\
 Neural Network algs
 """
 
+import torch
+import torch.nn as nn # importing the neural networks methods
+
 # defining the random nums reproducible
 torch.manual_seed(42)
 
@@ -104,9 +107,6 @@ print("Encoded:")
 Embeddings
 """
 
-import torch 
-import torch.nn as nn # importing the neural networks methods
-
 # converting an encoded sentence into a tensor
 input_tensor = torch.tensor(encoded, dtype=torch.long)
 print(input_tensor)
@@ -136,3 +136,22 @@ print(coffee_index)
 print("\nCoffee embedding:")
 print(embedding.weight[coffee_index])
 
+# defining the recurrent neural network input ([sentence, words, num/word])
+rnn_input = embedded_sentence.unsqueeze(0)
+print(rnn_input.shape)
+
+hidden_size=8
+rnn=nn.RNN(
+    input_size=embedding_size, # each word embedding contains four nums
+    hidden_size=hidden_size, # RNNs internal memo contains 8 nums
+    batch_first=True
+)
+
+# feeding the sentence
+outputs, final_hidden = rnn(rnn_input)
+
+print("Outputs shape:")
+print(outputs.shape)
+
+print("\nFinal hidden shape:")
+print(final_hidden.shape)
