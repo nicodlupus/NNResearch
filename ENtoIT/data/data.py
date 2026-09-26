@@ -96,4 +96,15 @@ print("\nOriginal:")
 print(example)
 
 print("Encoded:")
-print(encoded)
+
+"""
+Embeddings
+"""
+
+import torch 
+import torch.nn as nn # importing the neural networks methods
+
+# converting an encoded sentence into a tensor
+input_tensor = torch.tensor(encoded, dtype=torch.long)
+print(input_tensor)
+print(input_tensor.shape)
