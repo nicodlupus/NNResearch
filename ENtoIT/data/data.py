@@ -107,4 +107,28 @@ import torch.nn as nn # importing the neural networks methods
 # converting an encoded sentence into a tensor
 input_tensor = torch.tensor(encoded, dtype=torch.long)
 print(input_tensor)
-print(input_tensor.shape)
+print(input_tensor.shape) # sequence length = 5 in this case because we have five words
+
+# defining the embedding layer
+vocabulary_size = len(en_word_to_index)
+# defining the embedding size
+embedding_size=4
+
+# creating the embedding
+embedding=nn.Embedding(
+    num_embeddings=vocabulary_size,
+    embedding_dim=embedding_size
+) # 5 words x 4 numbers representing each of the words
+
+# creating the embedded sentence
+embedded_sentence = embedding(input_tensor)
+print(embedded_sentence)
+print(embedded_sentence.shape)
+
+coffee_index = en_word_to_index["coffee"]
+
+print("Coffee index:")
+print(coffee_index)
+
+print("\nCoffee embedding:")
+print(embedding.weight[coffee_index])
