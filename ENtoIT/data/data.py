@@ -75,3 +75,25 @@ print("\n")
 print("Italian word -> Index:\n")
 print(it_word_to_index)
 print("\n")
+
+# encoding function
+def encode_sentence(sentence, word_to_index):
+    tokens = tokenize(sentence)
+    
+    return [
+        word_to_index[word]
+        for word in tokens
+    ]
+    
+example = "i want to drink coffee"
+
+encoded = encode_sentence(
+    example,
+    en_word_to_index
+)
+
+print("\nOriginal:")
+print(example)
+
+print("Encoded:")
+print(encoded)
