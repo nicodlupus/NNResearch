@@ -25,3 +25,34 @@ sentence_pairs = [
 
 for en, it in sentence_pairs:
     print(f"{en:<30}->{it}")
+    
+    
+"""
+At this point we have to turn the words into numbers. Computers need words 
+reduced to int to cooperate
+"""
+
+# building the vocab 
+
+# tokenization function
+def tokenize(sentence):
+    return sentence.lower().split() # splitting the sentence into collection of words
+
+en_words = set()
+it_words = set()
+
+for en, it in sentence_pairs:
+    # splitting the english sentences into a collection of words
+    en_words.update(tokenize(en))
+    # splitting the italian sentences into a collection of words
+    it_words.update(tokenize(it))
+    
+# printing the english vocab
+print("Below is the English vocabulary:\n")
+print(en_words)
+print("\n")
+
+# printing the italian vocab
+print("Below is the Italian vocabulary:\n")
+print(it_words)
+print("\n")
