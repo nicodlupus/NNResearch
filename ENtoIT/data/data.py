@@ -3,6 +3,9 @@ In this file, small datasets are created as examples to be used by the\
 Neural Network algs
 """
 
+# defining the random nums reproducible
+torch.manual_seed(42)
+
 # small parallel dataset
 sentence_pairs = [
     ("i drink coffee", "bevo caffe"),
@@ -132,3 +135,4 @@ print(coffee_index)
 
 print("\nCoffee embedding:")
 print(embedding.weight[coffee_index])
+
