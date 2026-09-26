@@ -56,3 +56,22 @@ print("\n")
 print("Below is the Italian vocabulary:\n")
 print(it_words)
 print("\n")
+
+# assigning an integer to each word in the collection
+en_word_to_index = {
+    word:index
+    for index, word in enumerate(sorted(en_words))
+}
+
+it_word_to_index = {
+    word:index 
+    for index, word in enumerate(sorted(it_words))
+}
+
+# printing the index results
+print("English word -> Index:\n")
+print(en_word_to_index)
+print("\n")
+print("Italian word -> Index:\n")
+print(it_word_to_index)
+print("\n")
