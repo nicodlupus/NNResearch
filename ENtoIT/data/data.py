@@ -9,6 +9,19 @@ import torch.nn as nn # importing the neural networks methods
 # defining the random nums reproducible
 torch.manual_seed(42)
 
+# ADD SPECIAL TOKENS
+PAD_TOKEN = "<PAD>"
+SOS_TOKEN = "<SOS>"
+EOS_TOKEN = "<EOS>"
+UNK_TOKEN = "<UNK>"
+
+SPECIAL_TOKENS = [
+    PAD_TOKEN,
+    SOS_TOKEN,
+    EOS_TOKEN,
+    UNK_TOKEN
+]
+
 # small parallel dataset
 sentence_pairs = [
     ("i drink coffee", "bevo caffe"),
@@ -155,3 +168,5 @@ print(outputs.shape)
 
 print("\nFinal hidden shape:")
 print(final_hidden.shape)
+
+
