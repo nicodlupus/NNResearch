@@ -199,3 +199,43 @@ def decode_sentence(indices, index_to_word):
             words.append(word)
             
     return " ".join(words)
+
+# TESTING ENCODER-DECODER
+print("BELOW IS THE TEST OF THE DECODER AND ENCODER:\n")
+encoded = encode_sentence(
+    "i want to drink coffee",
+    en_word_to_index
+)
+print(encoded)
+
+decoded = decode_sentence(
+    encoded,
+    en_index_to_word
+)
+print(decoded)
+
+def sentence_to_tensor(sentence, word_to_index):
+    encoded = encode_sentence(sentence, word_to_index)
+
+    return torch.tensor(
+        encoded,
+        dtype=torch.long
+    )
+    
+training_data = []
+
+for english, italian in sentence_pairs:
+
+    english_tensor = sentence_to_tensor(
+        english,
+        english_word_to_index
+    )
+
+    italian_tensor = sentence_to_tensor(
+        italian,
+        italian_word_to_index
+    )
+
+    training_data.append(
+        (english_tensor, italian_tensor)
+    )
