@@ -6,6 +6,8 @@ Neural Network algs
 import torch
 import torch.nn as nn # importing the neural networks methods
 
+print("1: imports done")
+
 # defining the random nums reproducible
 torch.manual_seed(42)
 
@@ -45,6 +47,7 @@ sentence_pairs = [
 for en, it in sentence_pairs:
     print(f"{en:<30}->{it}")
     
+print("2: dataset done")
     
 """
 At this point we have to turn the words into numbers. Computers need words 
@@ -79,12 +82,12 @@ print("\n")
 # assigning an integer to each word in the collection
 en_word_to_index = {
     word:index
-    for index, word in enumerate(sorted(en_words))
+    for index, word in enumerate(SPECIAL_TOKENS + sorted(en_words))
 }
 
 it_word_to_index = {
     word:index 
-    for index, word in enumerate(sorted(it_words))
+    for index, word in enumerate(SPECIAL_TOKENS + sorted(it_words))
 }
 
 # printing the index results
@@ -127,7 +130,7 @@ Embeddings
 # converting an encoded sentence into a tensor
 input_tensor = torch.tensor(encoded, dtype=torch.long)
 print(input_tensor)
-print(input_tensor.shape) # sequence length = 5 in this case because we have five words
+print(input_tensor.shape) # five words plus the EOS token
 
 # defining the embedding layer
 vocabulary_size = len(en_word_to_index)
@@ -138,7 +141,7 @@ embedding_size=4
 embedding=nn.Embedding(
     num_embeddings=vocabulary_size,
     embedding_dim=embedding_size
-) # 5 words x 4 numbers representing each of the words
+) # each token, including EOS, gets four embedding values
 
 # creating the embedded sentence
 embedded_sentence = embedding(input_tensor)
@@ -228,12 +231,12 @@ for english, italian in sentence_pairs:
 
     english_tensor = sentence_to_tensor(
         english,
-        english_word_to_index
+        en_word_to_index
     )
 
     italian_tensor = sentence_to_tensor(
         italian,
-        italian_word_to_index
+        it_word_to_index
     )
 
     training_data.append(
