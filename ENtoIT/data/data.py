@@ -242,3 +242,63 @@ for english, italian in sentence_pairs:
     training_data.append(
         (english_tensor, italian_tensor)
     )
+    
+# ============================================================
+# 11. USEFUL CONSTANTS
+# ============================================================
+
+EN_VOCAB_SIZE = len(en_word_to_index)
+IT_VOCAB_SIZE = len(it_word_to_index)
+
+EN_PAD_INDEX = en_word_to_index[PAD_TOKEN]
+EN_SOS_INDEX = en_word_to_index[SOS_TOKEN]
+EN_EOS_INDEX = en_word_to_index[EOS_TOKEN]
+
+IT_PAD_INDEX = it_word_to_index[PAD_TOKEN]
+IT_SOS_INDEX = it_word_to_index[SOS_TOKEN]
+IT_EOS_INDEX = it_word_to_index[EOS_TOKEN]
+
+
+# ============================================================
+# 12. TESTS
+# ============================================================
+
+if __name__ == "__main__":
+
+    example = "i want to drink coffee"
+
+    encoded = encode_sentence(
+        example,
+        en_word_to_index
+    )
+
+    print("\nOriginal:")
+    print(example)
+
+    print("\nEncoded:")
+    print(encoded)
+
+    decoded = decode_sentence(
+        encoded,
+        en_index_to_word
+    )
+
+    print("\nDecoded:")
+    print(decoded)
+
+    tensor = sentence_to_tensor(
+        example,
+        en_word_to_index
+    )
+
+    print("\nTensor:")
+    print(tensor)
+
+    print("\nEnglish vocabulary size:")
+    print(EN_VOCAB_SIZE)
+
+    print("\nItalian vocabulary size:")
+    print(IT_VOCAB_SIZE)
+
+    print("\nFirst training pair:")
+    print(training_data[0])
