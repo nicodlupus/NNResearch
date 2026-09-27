@@ -170,3 +170,13 @@ print("\nFinal hidden shape:")
 print(final_hidden.shape)
 
 
+# adding the index to word collections
+en_index_to_word = {
+    index: word
+    for word, index in en_word_to_index.items()
+}
+
+it_index_to_word = {
+    index: word 
+    for word, index in it_word_to_index.items()
+}
