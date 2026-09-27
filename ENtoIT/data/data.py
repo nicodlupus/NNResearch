@@ -99,10 +99,14 @@ print("\n")
 def encode_sentence(sentence, word_to_index):
     tokens = tokenize(sentence)
     
-    return [
-        word_to_index[word]
+    # adding encoded
+    encoded = [
+        word_to_index.get(word, word_to_index[UNK_TOKEN])
         for word in tokens
     ]
+    
+    encoded.append(word_to_index[EOS_TOKEN])
+    return encoded
     
 example = "i want to drink coffee"
 
