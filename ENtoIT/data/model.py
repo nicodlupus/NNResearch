@@ -47,3 +47,25 @@ encoder = EncoderRNN(
     embedding_size=embedding_size,
     hidden_size=hidden_size
 )
+
+sentence = "i want to drink coffee"
+
+input_tensor = sentence_to_tensor(
+    sentence,
+    en_word_to_index
+)
+
+print(input_tensor)
+print(input_tensor.shape)
+
+input_tensor = input_tensor.unsqueeze(0)
+
+print(input_tensor.shape)
+
+outputs, hidden = encoder(input_tensor)
+
+print("\nEncoder outputs:")
+print(outputs.shape)
+
+print("\nFinal hidden state:")
+print(hidden.shape)
