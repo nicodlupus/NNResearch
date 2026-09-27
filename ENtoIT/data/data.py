@@ -184,3 +184,18 @@ it_index_to_word = {
     index: word 
     for word, index in it_word_to_index.items()
 }
+
+# creating the decoding mechanism
+def decode_sentence(indices, index_to_word):
+    words = []
+    
+    for index in indices:
+        word = index_to_word[index]
+        
+        if word == EOS_TOKEN:
+            break
+        
+        if word not in {PAD_TOKEN, SOS_TOKEN}:
+            words.append(word)
+            
+    return " ".join(words)
