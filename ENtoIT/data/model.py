@@ -34,10 +34,10 @@ class EncoderRNN(nn.Module):
             batch_first=True
         )
         
-        def forward(self, x):
-            embedded = self.embeddeding(x)
-            outputs, hidden = self.rnn(embedded)
-            return outputs, hidden
+    def forward(self, x):
+        embedded = self.embeddeding(x)
+        outputs, hidden = self.rnn(embedded)
+        return outputs, hidden
 # %% TEST ENCODER
 embedding_size = 8
 hidden_size = 16
@@ -69,3 +69,4 @@ print(outputs.shape)
 
 print("\nFinal hidden state:")
 print(hidden.shape)
+# %%
