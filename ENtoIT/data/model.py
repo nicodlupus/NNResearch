@@ -100,3 +100,19 @@ class DecoderRNN(nn.Module):
         predictions = self.output_layer(output)
         
         return predictions, hidden
+    
+# %% Testing the decoder
+decoder = DecoderRNN(
+    vocab_size=IT_VOCAB_SIZE,
+    embedding_size=embedding_size,
+    hidden_size=hidden_size
+)
+
+# starting the <SOS>
+decoder_input = torch.tensor(
+    [[IT_SOS_INDEX]],
+    dtype=torch.long
+)
+
+print(decoder_input) # one sentence
+print(decoder_input.shape) # one token
