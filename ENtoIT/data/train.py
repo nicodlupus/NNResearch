@@ -44,3 +44,8 @@ print("Encoder and Decoder successfully imported\n")
 # %% Defining the loss function
 criterion = nn.CrossEntropyLoss() # how wrong was the predicted italian word
 
+## %% Defining the optimizer
+optimizer = torch.optim.Adam(
+    list(encoder.parameters()) + list(decoder.parameters()),
+    lr=0.01
+)
