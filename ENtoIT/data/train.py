@@ -241,3 +241,10 @@ def translate(sentence, max_length=10):
     decoder.train()
 
     return " ".join(generated_words)
+
+# %% Testing
+print(
+    translate(
+        "i want to drink coffee"
+    )
+)
