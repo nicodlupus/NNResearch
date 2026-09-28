@@ -6,6 +6,8 @@ import torch.nn as nn
 from data import (
     EN_VOCAB_SIZE,
     EN_PAD_INDEX,
+    IT_EOS_INDEX,
+    it_index_to_word,
     sentence_to_tensor,
     en_word_to_index
 )
@@ -149,3 +151,16 @@ predicted_word = it_index_to_word[index]
 
 print("Predicted word:")
 print(predicted_word)
+
+# %% GENERATE A TRANSLATION
+
+decoder_input = torch.tensor(
+    [[IT_SOS_INDEX]],
+    dtype=torch.long
+)
+
+decoder_hidden = hidden
+
+generated_words = []
+
+max_length = 10
