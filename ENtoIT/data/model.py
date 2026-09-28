@@ -89,7 +89,12 @@ from data import (
 class DecoderRNN(nn.Module):
     def __init__(self, vocab_size, embedding_size, hidden_size):
         super().__init__()
-        
+
+        self.embedding = nn.Embedding(
+            num_embeddings=vocab_size,
+            embedding_dim=embedding_size,
+            padding_idx=IT_PAD_INDEX
+        )
         self.rnn = nn.RNN(input_size=embedding_size, hidden_size=hidden_size, batch_first=True)
         self.output_layer = nn.Linear(hidden_size, vocab_size)
         
@@ -116,3 +121,16 @@ decoder_input = torch.tensor(
 
 print(decoder_input) # one sentence
 print(decoder_input.shape) # one token
+
+# %% Passing the encoder memory into the decoder
+
+predictions, decoder_hidden = decoder(
+    decoder_input,
+    hidden # represents the English language
+)
+
+print("Prediction shape:")
+print(predictions.shape)
+
+print("Decoder hidden shape:")
+print(decoder_hidden.shape)
