@@ -106,6 +106,14 @@ optimizer.step() # updating the weights
 print("Loss:")
 print(loss.item())
 
+# %% adding necessary methods from data
+from data import (
+    sentence_to_tensor,
+    en_word_to_index,
+    it_index_to_word,
+    IT_EOS_INDEX
+)
+
 # %% TRAIN ONE PAIR
 
 def train_pair(english_tensor, italian_tensor):
@@ -177,3 +185,59 @@ for epoch in range(epochs):
             f"Epoch {epoch + 1}/{epochs} "
             f"| Loss: {average_loss:.4f}"
         )
+        
+# %% TRANSLATION FUNCTION
+
+def translate(sentence, max_length=10):
+
+    encoder.eval()
+    decoder.eval()
+
+    with torch.no_grad():
+
+        input_tensor = sentence_to_tensor(
+            sentence,
+            en_word_to_index
+        )
+
+        input_tensor = input_tensor.unsqueeze(0)
+
+        _, encoder_hidden = encoder(
+            input_tensor
+        )
+
+        decoder_input = torch.tensor(
+            [[IT_SOS_INDEX]],
+            dtype=torch.long
+        )
+
+        decoder_hidden = encoder_hidden
+
+        generated_words = []
+
+        for _ in range(max_length):
+
+            predictions, decoder_hidden = decoder(
+                decoder_input,
+                decoder_hidden
+            )
+
+            predicted_index = predictions.argmax(
+                dim=-1
+            )
+
+            index = predicted_index.item()
+
+            if index == IT_EOS_INDEX:
+                break
+
+            word = it_index_to_word[index]
+
+            generated_words.append(word)
+
+            decoder_input = predicted_index
+
+    encoder.train()
+    decoder.train()
+
+    return " ".join(generated_words)
