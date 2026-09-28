@@ -28,3 +28,15 @@ print("Encoder successfully defined\n")
 # defining the decoder
 decoder = DecoderRNN(vocab_size=12, embedding_size=embedding_size, hidden_size=hidden_size)
 print("Decoder successfully defined\n")
+
+from data import (
+    EN_VOCAB_SIZE,
+    IT_VOCAB_SIZE,
+)
+print("English and Italian vocabularies successfully imported\n")
+
+from model import (
+    encoder,
+    decoder
+)
+print("Encoder and Decoder successfully imported\n")
