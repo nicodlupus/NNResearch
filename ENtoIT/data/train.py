@@ -248,3 +248,15 @@ print(
         "i want to drink coffee"
     )
 )
+
+# %% Saving the trained model
+torch.save(
+    encoder.state_dict(), "encoder.pth"
+)
+
+torch.save(
+    decoder.state_dict(),
+    "decoder.pth"
+)
+
+print("Models saved.")
