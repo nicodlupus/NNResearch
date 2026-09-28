@@ -35,7 +35,7 @@ class EncoderRNN(nn.Module):
         )
         
     def forward(self, x):
-        embedded = self.embeddeding(x)
+        embedded = self.embedding(x)
         outputs, hidden = self.rnn(embedded)
         return outputs, hidden
 # %% TEST ENCODER
@@ -70,3 +70,33 @@ print(outputs.shape)
 print("\nFinal hidden state:")
 print(hidden.shape)
 # %%
+
+"""
+Importing the Italian Information and creating the italian decoder """
+
+# import from data.py
+from data import (
+    EN_VOCAB_SIZE,
+    EN_PAD_INDEX,
+    IT_VOCAB_SIZE,
+    IT_PAD_INDEX,
+    IT_SOS_INDEX,
+    sentence_to_tensor,
+    en_word_to_index
+)
+
+# DECODER
+class DecoderRNN(nn.Module):
+    def __init__(self, vocab_size, embedding_size, hidden_size):
+        super().__init__()
+        
+        self.rnn = nn.RNN(input_size=embedding_size, hidden_size=hidden_size, batch_first=True)
+        self.output_layer = nn.Linear(hidden_size, vocab_size)
+        
+    def forward(self, x, hidden):
+        embedded = self.embedding(x)
+        
+        output, hidden = self.rnn(embedded, hidden)
+        predictions = self.output_layer(output)
+        
+        return predictions, hidden
