@@ -59,3 +59,43 @@ print(english_tensor)
 
 print("Italian:")
 print(italian_tensor)
+
+# adding the batch dimensions
+english_tensor = english_tensor.unsqueeze(0)
+
+# resetting the gradients
+optimizer.zero_grad()
+
+# encoding the english sentence
+encoder_outputs, encoder_hidden = encoder(
+    english_tensor
+)
+
+# starting the decoder
+decoder_input = torch.tensor(
+    [[IT_SOS_INDEX]],
+    dtype=torch.long
+)
+
+decoder_hidden = encoder_hidden
+
+# teacher forcing
+loss = 0.0
+
+for target_token in italian_tensor:
+
+    predictions, decoder_hidden = decoder(
+        decoder_input,
+        decoder_hidden
+    )
+
+    prediction_scores = predictions[:, 0, :]
+
+    target = target_token.unsqueeze(0)
+
+    loss += criterion(
+        prediction_scores,
+        target
+    )
+
+    decoder_input = target.view(1, 1)
