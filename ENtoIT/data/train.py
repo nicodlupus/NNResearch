@@ -105,3 +105,75 @@ loss.backward()
 optimizer.step() # updating the weights
 print("Loss:")
 print(loss.item())
+
+# %% TRAIN ONE PAIR
+
+def train_pair(english_tensor, italian_tensor):
+
+    english_tensor = english_tensor.unsqueeze(0)
+
+    optimizer.zero_grad()
+
+    _, encoder_hidden = encoder(
+        english_tensor
+    )
+
+    decoder_input = torch.tensor(
+        [[IT_SOS_INDEX]],
+        dtype=torch.long
+    )
+
+    decoder_hidden = encoder_hidden
+
+    loss = 0.0
+
+    for target_token in italian_tensor:
+
+        predictions, decoder_hidden = decoder(
+            decoder_input,
+            decoder_hidden
+        )
+
+        prediction_scores = predictions[:, 0, :]
+
+        target = target_token.unsqueeze(0)
+
+        loss += criterion(
+            prediction_scores,
+            target
+        )
+
+        # Teacher forcing
+        decoder_input = target.view(1, 1)
+
+    loss.backward()
+
+    optimizer.step()
+
+    return loss.item()
+
+# %% TRAINING LOOP
+
+epochs = 500
+
+for epoch in range(epochs):
+
+    total_loss = 0.0
+
+    for english_tensor, italian_tensor in training_data:
+
+        pair_loss = train_pair(
+            english_tensor,
+            italian_tensor
+        )
+
+        total_loss += pair_loss
+
+    if (epoch + 1) % 50 == 0:
+
+        average_loss = total_loss / len(training_data)
+
+        print(
+            f"Epoch {epoch + 1}/{epochs} "
+            f"| Loss: {average_loss:.4f}"
+        )
