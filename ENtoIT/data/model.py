@@ -163,4 +163,32 @@ decoder_hidden = hidden
 
 generated_words = []
 
-max_length = 10
+max_length = 10 # emergency limit
+
+for step in range(max_length):
+
+    predictions, decoder_hidden = decoder(
+        decoder_input,
+        decoder_hidden
+    )
+
+    predicted_index = predictions.argmax(dim=-1)
+
+    index = predicted_index.item()
+
+    predicted_word = it_index_to_word[index]
+
+    print(
+        f"Step {step + 1}: "
+        f"{predicted_word}"
+    )
+
+    if index == IT_EOS_INDEX:
+        break
+
+    generated_words.append(predicted_word)
+
+    decoder_input = predicted_index
+    
+print("\nGenerated translation:")
+print(" ".join(generated_words))
