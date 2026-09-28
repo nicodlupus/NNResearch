@@ -134,3 +134,18 @@ print(predictions.shape)
 
 print("Decoder hidden shape:")
 print(decoder_hidden.shape)
+
+# %% testing predictions
+# the model is still untrained
+from data import it_index_to_word
+
+predicted_index = predictions.argmax(dim=-1)
+print("Predicted index:")
+print(predicted_index)
+
+index = predicted_index.item()
+
+predicted_word = it_index_to_word[index]
+
+print("Predicted word:")
+print(predicted_word)
