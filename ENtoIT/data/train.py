@@ -40,3 +40,7 @@ from model import (
     decoder
 )
 print("Encoder and Decoder successfully imported\n")
+
+# %% Defining the loss function
+criterion = nn.CrossEntropyLoss() # how wrong was the predicted italian word
+
