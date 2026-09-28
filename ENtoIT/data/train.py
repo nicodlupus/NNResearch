@@ -49,3 +49,13 @@ optimizer = torch.optim.Adam(
     list(encoder.parameters()) + list(decoder.parameters()),
     lr=0.01
 )
+
+# %% Training example
+
+# defining the language tensors
+english_tensor, italian_tensor = training_data[10]
+print("English:")
+print(english_tensor)
+
+print("Italian:")
+print(italian_tensor)
