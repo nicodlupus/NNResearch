@@ -99,3 +99,9 @@ for target_token in italian_tensor:
     )
 
     decoder_input = target.view(1, 1)
+    
+# %% Backpropagation
+loss.backward()
+optimizer.step() # updating the weights
+print("Loss:")
+print(loss.item())
