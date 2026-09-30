@@ -39,3 +39,9 @@ decoder = DecoderRNN(
 # encoder
 encoder.load_state_dict(torch.load("encoder.pth"))
 
+# decoder
+decoder.load_state_dict(torch.load("decoder.pth"))
+
+encoder.eval()
+decoder.eval()
+
